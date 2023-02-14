@@ -1,0 +1,4 @@
+node_modules
+**/_storage
+test/e2e/screenshots
+test/e2e/videos
