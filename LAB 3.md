@@ -46,7 +46,7 @@ Here's some BDD syntax to get you started:
 
 Implement the new scenario: Filter list of days by date
 
-This time you on your own with the BDD syntax :)
+This time you're on your own with the BDD syntax :)
 
 ## Task 4
 
