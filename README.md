@@ -1,3 +1,5 @@
+![example workflow](https://github.com/cederstrom/e2e-workshop/actions/workflows/ci.yml/badge.svg)
+
 # end-2-end tests with Cypress
 
 This repo is the base for a hands on lab in end-2-end testing with Cypress.
