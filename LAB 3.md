@@ -28,7 +28,7 @@ Write a test, or update an existing) for the following scenario:
 
 You should now have a failing test because of the "incorrect" presentation of total duration. Now, make the test pass by changing production code.
 
-A great places to start looking is `src/domain-model/Day.ts`
+A great places to start looking is `src/public/scripts/index.js`
 
 ## Task 2
 

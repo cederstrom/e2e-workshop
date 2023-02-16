@@ -5,40 +5,36 @@ context(
   () => {
     before(() => {
       // Will get the fixture from `test/e2e/fixtures/one-registration.json` and overwrite storage with it
-      cy.task("db:apply-fixture", "one-registration");
+      //cy.task("db:apply-fixture", "one-registration");
+
+      cy.task("db:empty");
+      cy.visit("/");
+      cy.getById("select-consultant").select("Bruce Wayne");
+      cy.getById("input-date").type("2023-02-14");
+      cy.getById("select-project").select("New app");
+      cy.getById("input-activity").type("Programming");
+      cy.getById("input-duration").type("200 min");
+      cy.contains("button", "Add registration").click();
     });
 
     describe("When visiting site", () => {
-      beforeEach(() => cy.visit("/"));
-
-      it("Then should show one day", () => {
-        cy.getByCy("day").should("have.length", 1);
-      });
-
-      it("Then should show one registration", () => {
-        cy.getByCy("registration").should("have.length", 1);
-      });
-
-      it("Then should show consultants name for the registration", () => {
-        cy.getByCy("consultant-name")
+      it("Then should show one day with one registartion for 200 min on Programming @ New app", () => {
+        cy.get(".day").should("have.length", 1);
+        cy.get(".registration").should("have.length", 1);
+        cy.get("dl > :nth-child(2)").first().should("have.text", "Bruce Wayne");
+        cy.get(".registration > :nth-child(2)")
           .first()
-          .should("have.text", "Bruce Wayne");
-      });
-
-      it("Then should show project name for the registration", () => {
-        cy.getByCy("project-name").first().should("have.text", "New app");
-      });
-
-      it("Then should show activity name for the registration", () => {
-        cy.getByCy("activity-name").first().should("have.text", "Programming");
-      });
-
-      it("Then should show duration for the registration", () => {
-        cy.getByCy("duration").first().should("have.text", "200 minutes");
-      });
-
-      it("Then total registered time for the day should be 200 min", () => {
-        cy.getByCy("total-duration").should("have.text", "200 minutes");
+          .should("have.text", "New app");
+        cy.get(".registration > :nth-child(1)")
+          .first()
+          .should("have.text", "Programming");
+        cy.get(".registration > :nth-child(4)")
+          .first()
+          .should("have.text", "200 minutes");
+        cy.get(".registration > :nth-child(4)").should(
+          "have.text",
+          "200 minutes"
+        );
       });
     });
   }

@@ -7,11 +7,11 @@ function setCurrentDateInDatePicker() {
 getAllConsultantsAndAddToUi();
 function getAllConsultantsAndAddToUi() {
   httpGet("/api/consultants")
-    .then(response => response.json())
-    .then(response => {
+    .then((response) => response.json())
+    .then((response) => {
       var consultants = response.consultants;
       var allDaysElement = document.getElementById("select-consultant");
-      consultants.forEach(consultant => {
+      consultants.forEach((consultant) => {
         allDaysElement.innerHTML += `<option value="${consultant.id.value}">${consultant.person.fullName}</option>`;
       });
     });
@@ -20,12 +20,12 @@ function getAllConsultantsAndAddToUi() {
 displayRegistrations();
 function displayRegistrations() {
   httpGet("/api/days")
-    .then(response => response.json())
-    .then(response => {
+    .then((response) => response.json())
+    .then((response) => {
       var allDays = response.days;
       var allDaysElement = document.getElementById("all-days");
       allDaysElement.innerHTML = "";
-      allDays.forEach(day => {
+      allDays.forEach((day) => {
         allDaysElement.innerHTML += getDayDisplayElement(day);
       });
     });
@@ -34,21 +34,21 @@ function displayRegistrations() {
 function getDayDisplayElement(day) {
   var registrationsHtml = "";
   var totalDurationMinutes = 0;
-  day.registrations.forEach(registration => {
+  day.registrations.forEach((registration) => {
     registrationsHtml += getRegistrationDisplayElement(registration);
     totalDurationMinutes += registration.duration.minutes;
   });
   return `
-    <div class="day" cy="day">
+    <div class="day">
         <dl>
             <dt>Consultant</dt>
-            <dd cy="consultant-name">${day.consultant.person.fullName}</dd>
+            <dd>${day.consultant.person.fullName}</dd>
 
             <dt>Date</dt>
             <dd>${new Date(day.date).toDateString()}</dd>
 
             <dt>Total duration</dt>
-            <dd cy="total-duration">${totalDurationMinutes} minutes</dd>
+            <dd>${totalDurationMinutes} minutes</dd>
 
             <dt>Registrations</dt>
             <dd><ul>${registrationsHtml}</ul></dd>
@@ -58,12 +58,12 @@ function getDayDisplayElement(day) {
 
 function getRegistrationDisplayElement(registration) {
   return `
-    <li class="registration" cy="registration">
-      <span cy="activity-name">${registration.activity}</span>
+    <li class="registration">
+      <span>${registration.activity}</span>
       @
-      <span cy="project-name">${registration.projectSnapshot.name}</span>
+      <span>${registration.projectSnapshot.name}</span>
       <br />
-      <span cy="duration">${registration.duration.minutes} minutes</span>
+      <span>${registration.duration.minutes} minutes</span>
     </li>`;
 }
 
@@ -100,18 +100,18 @@ function addRegistration() {
     registration: {
       projectName,
       activity,
-      duration
-    }
+      duration,
+    },
   };
   httpPost(`/api/days/${consultantId}/${date}/registrations`, data)
-    .then(response => {
+    .then((response) => {
       if (response.status === 201) {
         displayRegistrations();
         return;
       }
       return response.json();
     })
-    .then(json => {
+    .then((json) => {
       if (json && json.error) {
         showError(json.error);
       }
@@ -121,14 +121,13 @@ function addRegistration() {
 function updateProjectSelect() {
   var consultantId = document.getElementById("select-consultant").value;
   httpGet(`/api/consultants/${consultantId}/projects`)
-    .then(response => response.json())
-    .then(response => {
+    .then((response) => response.json())
+    .then((response) => {
       var projects = response.projects;
       var projectsElement = document.getElementById("select-project");
-      projectsElement.innerHTML = projectsElement.getElementsByTagName(
-        "option"
-      )[0].outerHTML;
-      projects.forEach(project => {
+      projectsElement.innerHTML =
+        projectsElement.getElementsByTagName("option")[0].outerHTML;
+      projects.forEach((project) => {
         projectsElement.innerHTML += `<option value="${project.name}">${project.name}</option>`;
       });
     });
@@ -166,8 +165,8 @@ function getOptions(verb, data) {
     method: verb,
     headers: {
       Accept: "application/json",
-      "Content-Type": "application/json"
-    }
+      "Content-Type": "application/json",
+    },
   };
   if (data) {
     options.body = JSON.stringify(data);

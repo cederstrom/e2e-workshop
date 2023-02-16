@@ -20,3 +20,7 @@
 6. Open any test file and edit it to make it fail. Notice that the tests are automatically re-run.
 
 7. Edit the test back to pass and make sure you have a suite of passing tests.
+
+8. Refactor the suite to use stable selectors and perheps some form of page objects.
+
+9. Refactor tests in `show-existing-registration.spec.js` to use a fixture.

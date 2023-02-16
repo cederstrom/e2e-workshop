@@ -6,11 +6,11 @@ context(
     describe("When visiting time report form and selecting Stina", () => {
       before(() => {
         cy.visit("/");
-        cy.getByCy("select-consultant").select("Stina Johansson");
+        cy.getById("select-consultant").select("Stina Johansson");
       });
 
       it("Then should list projects 'New app' and 'Test Academy presentation'", () => {
-        cy.getByCy("select-project")
+        cy.getById("select-project")
           .find("option:enabled")
           .should("have.length", 2)
           .should("contain.text", "New app")

@@ -75,6 +75,7 @@ export class Day {
       new Date(dayObject.date),
       dayObject.state
     );
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     dayObject.registrations.forEach((r: any) =>
       day.addRegistration(Registration.fromJsonObject(r))
     );
